@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import cv2
 import os
 import re
 from matplotlib.font_manager import FontProperties
@@ -67,8 +66,9 @@ def deal_data(init_data):
     return data_img
 
 
-def draw_pict(final_data,lab_name,path,path_img):
+def draw_pict(final_data,lab_name,img_way):
     data_img = final_data
+    path = img_way
     for j in range(len(data_img)):
         plt.plot(data_img[j][0]['force'],data_img[j][0]['distance'],color='green',label = lab_name[j][0])
         plt.plot(data_img[j][1]['force'],data_img[j][1]['distance'],color='red',label = lab_name[j][1])
@@ -78,13 +78,9 @@ def draw_pict(final_data,lab_name,path,path_img):
         plt.xlim((0,None))
         plt.ylim((0,None))
         plt.ylabel("Displance",fontsize = 16)
-        #img_name = str(lab_name[j][0][:-2]) + ".bmp"   ,bbox_inches = 'tight'
-        #savename = os.path.join(str(path_img),img_name)
-        plt.savefig('j.png',dpi =1280 )
-        img =cv2.imread('j.png')
+        path_img = path + '/' + (str(lab_name[j][0][:-2]) + '.jpg')
+        plt.savefig(path_img,dpi =1280 )
+
         plt.close()
-        #os.rename(os.path.join(path_img,'1.png'),os.path.join(path_img,(str(lab_name[j][0][:-2]) + '.png')))                           #图片最终保存路径（根据自己要求设置）
-        cv2.imwrite(os.path.join(path_img,(str(lab_name[j][0][:-2]) + '.jpg')),img)
-        img_path = os.path.join(path,'j.png')
-        os.remove(img_path)
+
 
